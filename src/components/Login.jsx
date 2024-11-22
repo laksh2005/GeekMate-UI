@@ -1,21 +1,33 @@
 import React, { useState } from 'react'
 import axios from "axios";
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../utils/constants';
 
 const Login = () => {
 
-  const [emailId, setEmailId] = useState("lewa@gmail.com");
-  const [password, setPassword] = useState("Barca!404");
+  const [emailId, setEmailId] = useState("travis@gmail.com");
+  const [password, setPassword] = useState("Travis!404");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 //HERE WE ARE CONNECTING OUR FUNCTION TO THE /login API which we created in backend
   const handleLogin = async () =>{
     try{
-      const res = await axios.post("http://localhost:1000/login",
+      const res = await axios.post(
+        BASE_URL + "/login",
       {
         emailId,
         password,
       },
       {withCredentials: true},
       );
+      //this add the data of the login to the store
+      dispatch(addUser(res.data));
+
+      return navigate("/");
+
     } catch(err){
       console.log(err);
     }
@@ -53,7 +65,7 @@ const Login = () => {
             </div>
             <div className="card-actions justify-center">
               <button 
-              className="btn btn-primary"
+              className="btn btn-outline btn-primary"
               onClick={handleLogin}>
                 Login</button>
             </div>

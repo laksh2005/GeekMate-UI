@@ -1,6 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
+
+  // subscribing to the appStore to display the picture of the logged in user 
+  const user = useSelector((store) => store.user);
+  console.log(user);
+
   return (
 <div className="navbar bg-base-300">
   <div className="navbar-start">
@@ -34,7 +40,7 @@ const Navbar = () => {
   </div>
 
   <div className="navbar-end">
-    <button className="btn btn-ghost btn-circle">
+  <button className="btn btn-ghost btn-circle">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-5 w-5"
@@ -49,12 +55,15 @@ const Navbar = () => {
       </svg>
     </button>
 
-    <div className="dropdown dropdown-end mx-5">
+    {/* we make the profile photo appear only if the user is logged in */}
+    {user && ( 
+    <div className="dropdown dropdown-end mx-5 flex">
+      <p className='mx-4 py-2'>Welcome, {user.firstName}</p>
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img
-            alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            alt="user pic"
+            src= "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
         </div>
       </div>
       <ul
@@ -70,9 +79,10 @@ const Navbar = () => {
         <li><a>Logout</a></li>
       </ul>
     </div>
+    )}
   </div>
 </div>
   )
 }
 
-export default Navbar
+export default Navbar;

@@ -1,8 +1,4 @@
 # GeekMate
 
-npm i
-npm i daisyui
-npm i react-router-dom
-npm i tailwindcss
-npm i cors (in backend code)
-npm i axios
+- npm i daisyui react-router-dom tailwindcss axios react-redux @reduxjs/toolkit
+
