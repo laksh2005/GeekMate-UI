@@ -14,23 +14,21 @@ const Body = () => {
 
   //we are making with fetchUser so that the user doesn't log out after we refresh the page
   const fetchUser = async () => {
-    try{
-      const res = await axios.get(BASE_URL + '/profile/view', {
-        withCredentials : true,
+    if (userData) return;
+    try {
+      const res = await axios.get(BASE_URL + "/profile/view", {
+        withCredentials: true,
       });
       dispatch(addUser(res.data));
-    } catch(err){
-      if(err.status === 401){
+    } catch (err) {
+      if (err.status === 401) {
         navigate("/login");
       }
-      console.log(err);
+      console.error(err);
     }
-  }
-
-  useEffect(()=>{
-    if(!userData){
-      fetchUser()
-    }
+  };
+  useEffect(() => {
+    fetchUser();
   }, []);
 
   return (

@@ -9,27 +9,29 @@ const Login = () => {
 
   const [emailId, setEmailId] = useState("travis@gmail.com");
   const [password, setPassword] = useState("Travis!404");
+  const [err, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
 //HERE WE ARE CONNECTING OUR FUNCTION TO THE /login API which we created in backend
-  const handleLogin = async () =>{
-    try{
-      const res = await axios.post(
-        BASE_URL + "/login",
+const handleLogin = async () => {
+  try {
+    const res = await axios.post(
+      BASE_URL + "/login",
       {
         emailId,
         password,
       },
-      {withCredentials: true},
-      );
+      { withCredentials: true }
+    );
       //this add the data of the login to the store
       dispatch(addUser(res.data));
 
       return navigate("/");
 
     } catch(err){
-      console.log(err);
+      setError(err.message);
+      console.log(err?.response?.data || "Something went wrong");
     }
   }
 
