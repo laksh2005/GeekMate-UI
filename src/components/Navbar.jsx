@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -36,7 +37,7 @@ const Navbar = () => {
   </div>
 
   <div className="navbar-center">
-    <a className="btn btn-ghost text-xl">GeekMate</a>
+    <Link to="/" className="btn btn-ghost text-xl">GeekMate</Link>
   </div>
 
   <div className="navbar-end">
@@ -70,13 +71,13 @@ const Navbar = () => {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         <li>
-          <a className="justify-between">
+          <Link to="/profile" className="justify-between">
             Profile
             <span className="badge">New</span>
-          </a>
+          </Link>
         </li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li><Link to="/login">Logout</Link></li>
       </ul>
     </div>
     )}
