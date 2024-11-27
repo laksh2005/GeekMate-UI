@@ -1,9 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFeed } from '../utils/feedSlice'
+import {BASE_URL} from '../utils/constants'
+import UserCard from './UserCard'
 
 const Feed = () => {
-  return (
-    <div>Feed</div>
-  )
-}
+  const feed = useSelector((store) => store.feed);
+  const dispatch = useDispatch();
 
-export default Feed
+  const getFeed = async () => {
+    if (feed) return; 
+    try {
+      const res = await axios.get(BASE_URL + "/feed", { withCredentials: true });
+      console.log("Feed API Response:", res.data);
+      dispatch(addFeed(res.data));
+    } catch (err) {
+      console.log("Error Fetching Feed:", err?.response?.data);
+    }
+  };
+
+  useEffect(() => {
+    getFeed();
+  }, []);
+
+  console.log("Redux Feed State:", feed); 
+
+  return (
+    feed && feed[2] ? ( 
+      <div className="flex justify-center my-10">
+        <UserCard user={feed[2]} />
+      </div>
+    ) : (
+      <div className='text-red-700 justify-center flex'>Loading or no feed data available...</div>
+    )
+  );
+};
+
+export default Feed;
