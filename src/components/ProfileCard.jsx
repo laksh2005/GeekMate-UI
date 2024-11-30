@@ -1,4 +1,4 @@
-const UserCard = ({ user }) => {
+const ProfileCard = ({ user }) => {
     const { firstName, lastName, age, gender, about, skills } = user;
     return (
       <div className="card bg-base-300 w-96 shadow-xl">
@@ -10,14 +10,9 @@ const UserCard = ({ user }) => {
           <p>{`${age}, ${gender}`}</p>
           <p>{skills.join(" , ")}</p>
           <p>{about}</p>
-
-          <div className="card-actions justify-center my-4">
-            <button className="btn btn-outline btn-success">Add</button>
-            <button className="btn btn-outline btn-error">Ignore</button>
-           </div>
         </div>
        </div>
   )
 }
 
-export default UserCard
+export default ProfileCard

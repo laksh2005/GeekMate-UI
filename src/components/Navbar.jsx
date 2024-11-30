@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils/constants';
@@ -9,6 +9,7 @@ const Navbar = () => {
 
   // subscribing to the appStore to display the picture of the logged in user 
   const user = useSelector((store) => store.user);
+  const [photoURL, setPhotoURL] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -82,7 +83,7 @@ const Navbar = () => {
         <div className="w-10 rounded-full">
           <img
             alt="user pic"
-            src= "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src= {user.photoURL} />
         </div>
       </div>
       <ul
