@@ -34,7 +34,7 @@ const Network = () => {
   return (
           <div className="text-center my-10">
           <h1 className="text-bold text-white text-3xl mb-12">My Network 🌐</h1>
-          {connections.map((connection, index) => {
+          {Array.isArray(connections) && connections.map((connection, index) => {
             const { firstName, lastName, photoURL, age, gender, about } = connection;
 
             return (
