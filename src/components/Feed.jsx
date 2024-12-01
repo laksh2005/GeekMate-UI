@@ -29,7 +29,7 @@ const Feed = () => {
   return (
     feed && feed[2] ? ( 
       <div className="flex justify-center my-10">
-        <UserCard user={feed[2]} />
+        <UserCard user={feed[0]} />
       </div>
     ) : (
       <div className='text-red-700 justify-center flex'>Loading or no feed data available...</div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ProfileCard from './ProfileCard'
+import UserCard from './UserCard'
 import axios from 'axios';
 import {BASE_URL} from '../utils/constants'
 import { useDispatch } from 'react-redux';
@@ -131,7 +131,7 @@ const EditProfile = ({user}) => {
             </div>
           </div>
           <div className="card bg-base-300 w-96 shadow-xl border hover:border-gray-700 my-32">
-            <ProfileCard user={{firstName, lastName, photoURL, age, gender, skills, about}}/>
+            <UserCard user={{firstName, lastName, photoURL, age, gender, skills, about}}/>
           </div>
           </div>
           {showToast && 
