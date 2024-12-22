@@ -24,12 +24,14 @@ const Feed = () => {
     getFeed();
   }, []);
 
-  console.log("Redux Feed State:", feed); 
-
+  if (!feed || feed.length <= 0) {
+    return <h1 className='flex justify-center text-red-600'>No New Users available!</h1>;
+  }
+  
   return (
     feed && feed[0] ? ( 
       <div className="flex justify-center my-10">
-        <UserCard user={feed[1]} />
+        <UserCard user={feed[0]} />
       </div>
     ) : (
       <div className='text-red-700 justify-center flex'>No feed data available...</div>
