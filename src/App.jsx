@@ -9,6 +9,7 @@ import appStore from './utils/appStore';
 import Feed from './components/Feed';
 import Network from './components/Network';
 import Invitations from './components/Invitations';
+import Faqs from './components/Faqs';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/network" element={<Network />} />
           <Route path="/invitations" element={<Invitations />} />
+          <Route path="/faqs" element={<Faqs />} />
         </Route>
       </Routes>
     </BrowserRouter>

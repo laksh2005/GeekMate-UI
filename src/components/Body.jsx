@@ -13,29 +13,32 @@ const Body = () => {
   const userData = useSelector((store)=> store.user);
 
   //we are making with fetchUser so that the user doesn't log out after we refresh the page
-  const fetchUser = async () => {
-    if (userData) return;
-    try {
-      const res = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials: true,
-      });
-      dispatch(addUser(res.data));
-    } catch (err) {
-      if (err.status === 401) {
-        navigate("/login");
-      }
-      console.error(err);
-    }
-  };
+
   useEffect(() => {
+    const fetchUser = async () => {
+      if (userData) return;
+      try {
+        const res = await axios.get(BASE_URL + "/profile/view", {
+          withCredentials: true,
+        });
+        dispatch(addUser(res.data));
+      } catch (err) {
+        if (err.response?.status === 401) {
+          navigate("/login");
+        }
+        console.error(err);
+      }
+    };
     fetchUser();
-  }, []);
+  }, [dispatch, navigate, userData]);
 
   return (
-
-    <div>
+    <div className="flex flex-col min-h-screen">
         <Navbar />
+
+      <div className="flex-grow">
         <Outlet />
+      </div>
         <Footer />
     </div>
   )

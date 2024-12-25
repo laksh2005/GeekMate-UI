@@ -1,47 +1,57 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react';
 import { BASE_URL } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { addRequests, removeRequest } from '../utils/requestSlice';
+import gsap from 'gsap';
 
 const Invitations = () => {
-  const requests = useSelector((store)=> store.requests);
+  const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
+  const requestRefs = useRef([]);
 
-  const reviewRequest = async (status, _id)=>{
-    try{
-      const res = axios.post(BASE_URL + "/request/review/" + status + "/" + _id, {}, {withCredentials: true});
+  const reviewRequest = async (status, _id) => {
+    try {
+      const res = axios.post(BASE_URL + "/request/review/" + status + "/" + _id, {}, { withCredentials: true });
       dispatch(removeRequest(_id));
-    }
-    catch(err){}
-  }
+    } catch (err) {}
+  };
 
-  const fetchRequests = async () =>{
-
-    try{
-      const res = await axios.get(BASE_URL + "/user/requests/recieved",{withCredentials:true});
-
+  const fetchRequests = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/user/requests/recieved", { withCredentials: true });
       dispatch(addRequests(res?.data?.data));
       console.log(res?.data?.data);
+    } catch (err) {}
+  };
 
-    } catch(err){
-      //error case
+  useEffect(() => {
+    fetchRequests();
+  }, []);
+
+  useEffect(() => {
+    if (requestRefs.current) {
+      requestRefs.current.forEach((el, index) => {
+        if (el) {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: -20 },
+            { opacity: 1, y: 0, duration: 0.5, delay: index * 0.2, ease: 'power2.out' }
+          );
+        }
+      });
     }
-  }
-
-  
-  useEffect(()=>{
-    fetchRequests()
-  }, [])
+  }, [requests]);
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl mb-12">Invitations 📩</h1>
-      {Array.isArray(requests) && requests.map((request) => {
+      <h1 className="text-extrabold text-3xl mb-12">Invitations 📩</h1>
+      {Array.isArray(requests) && requests.map((request, index) => {
         const { _id, firstName, lastName, photoURL, age, gender, about } = request.fromUserID;
         return (
           <div
             key={_id}
+            ref={(el) => (requestRefs.current[index] = el)}
             className="flex m-4 p-4 rounded-lg bg-base-200 hover:bg-base-300 w-1/2 mx-auto my-5"
           >
             <div>
@@ -73,7 +83,6 @@ const Invitations = () => {
         );
       })}
     </div>
-
   );
 };
 
