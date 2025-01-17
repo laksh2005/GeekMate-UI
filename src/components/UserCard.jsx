@@ -89,9 +89,8 @@ const UserCard = ({ user, dragAreaRef }) => {
             {firstName + " " + lastName}
           </h2>
           <div className="badge badge-secondary font-medium"> 
-            {`${age}, ${gender.charAt(0).toUpperCase()}${gender.slice(1)}`}
+            {`${age}, ${gender ? gender.charAt(0).toUpperCase() + gender.slice(1) : 'Unknown'}`}
           </div>
-
         </div>
 
         <div className="divider my-2"></div>
